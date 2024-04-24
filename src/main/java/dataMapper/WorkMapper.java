@@ -27,7 +27,7 @@ public class WorkMapper implements IDataMapper<Work> {
 
     @Override
     public boolean create(Work work) {
-        String sql = "INSERT INTO Work (personID, productID, toMake, finishDate) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO Work (personID, productID, toMake, hoursWorked, finishDate) VALUES (?, ?, ?, ?, ?)";
         String act = work.isActive() ? "T" : "F";
         try (Connection conn = Database.getConnection();
              PreparedStatement statement = Database.prepareStatement(conn, sql, work.getPerson().getId(), work.getProduct().getId(), work.getToMake(), work.getFinishDate());

@@ -19,10 +19,11 @@ public class Work {
     Person person;
     Product product;
 
-    public Work(Person person, Product product, int toMake, Date finishDate) {
+    public Work(Person person, Product product, int toMake, int hoursWorked, Date finishDate) {
         this.person = person;
         this.product = product;
         this.toMake = toMake;
+        this.hoursWorked = hoursWorked;
         this.finishDate = finishDate;
     }
 

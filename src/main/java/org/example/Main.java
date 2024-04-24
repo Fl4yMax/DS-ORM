@@ -30,17 +30,85 @@ public class Main {
         ProductMapper productM = ProductMapper.getInstance();
         WorkMapper workM = WorkMapper.getInstance();
 
-        /*Address address = new Address("DistrictName", "123456789", "example@example.com", "CityName", "12345", "StreetName", 123, "CountryName");
-        addressM.create(address);
-        Person p = new Person("vol2223", "Pepa", "Volheim", null, null, address, false, "worker");
+        Company c1 = new Company("Company A", "CIN123", "TIN456");
+        companyM.create(c1);
+        Company c2 = new Company("Company B", "CIN789", "TIN012");
+        companyM.create(c2);
+        Company c3 = new Company("Company C", "CIN345", "TIN678");
+        companyM.create(c3);
+        Company c4 = new Company("Company D", "CIN901", "TIN234");
+        companyM.create(c4);
 
-        personM.create(p);*/
+        Address a1 = new Address("District X", "123456789", "info@companyA.com", "City A", "12345", "Street A", 1, "Czechia");
+        addressM.create(a1);
+        Address a2 = new Address("District Y", "987654321", "info@companyB.com", "City B", "54321", "Street B", 2, "Country B");
+        addressM.create(a2);
+        Address a3 = new Address("District Z", "987654321", "info@companyC.com", "City C", "54321", "Street C", 3, "Country C");
+        addressM.create(a3);
+        Address a4 = new Address("District W", "123456789", "info@companyD.com", "City D", "12345", "Street D", 4, "Country D");
+        addressM.create(a4);
 
+        Person p1 = new Person("doe1112", "John", "Doe", null, c1, a1, true, "worker");
+        personM.create(p1);
+        Person p2 = new Person("smi0765", "Jane", "Smith", null, c2, a2, false, "worker");
+        personM.create(p2);
+        Person p3 = new Person("joh9223", "Michael", "Johnson", null, c3, a3, false, "worker");
+        personM.create(p3);
+        Person p4 = new Person("wil0991", "Emily", "Wilson", null, null, a4, false, "admin");
+        personM.create(p4);
 
-        Person p = personM.find(5);
-        System.out.println(p.getLastName());
-        /*Order o = OrderMapper.getInstance().find(2);
-        System.out.println(o.getPerson().getId());*/
+        Account acc1 = new Account(50000, 1, 2500, "passwordsA", true, "1234", "567890", "1234567890", p1);
+        accountM.create(acc1);
+        Account acc2 = new Account(60000, 2, 100, "passwordsB", true, "5678", "098765", "9876543210", p2);
+        accountM.create(acc2);
+        Account acc3 = new Account(70000, 3, 200, "passwordsC", true, "1234", "567890", "1234567890", p3);
+        accountM.create(acc3);
+        Account acc4 = new Account(80000, 0, 1600, "passwordsD", true, "5678", "098765", "9876543210", p4);
+        accountM.create(acc4);
+
+        Order o1 = new Order(p1);
+        orderM.create(o1);
+        Order o2 = new Order(p1);
+        orderM.create(o2);
+        Order o3 = new Order(p2);
+        orderM.create(o3);
+        Order o4 = new Order(p4);
+        orderM.create(o4);
+
+        Product pr3 = new Product("Nail", 0.35f, 1000, null);
+        productM.create(pr3);
+        Product pr2 = new Product("Leg", 69.99f, 50, pr3);
+        productM.create(pr2);
+        Product pr1 = new Product("Chair", 499.99f, 100, pr2);
+        productM.create(pr1);
+        Product pr4 = new Product("Table", 2499.99f, 75, pr2);
+        productM.create(pr4);
+        Product pr5 = new Product("Wrench", 149.99f, 40, null);
+        productM.create(pr5);
+
+        /*-- Insert into Payment table
+        INSERT INTO Payment (paymentDate, amount, personID) VALUES (SYSDATE, 1000, 1);
+        INSERT INTO Payment (paymentDate, amount, personID) VALUES (SYSDATE, 2000, 2);
+        INSERT INTO Payment (paymentDate, amount, personID) VALUES (SYSDATE, 3000, 3);
+        INSERT INTO Payment (paymentDate, amount, personID) VALUES (SYSDATE, 4000, 4);*/
+
+        Work w1 = new Work(p1, pr1, 300, 15, null);
+        workM.create(w1);
+        Work w2 = new Work(p2, pr2, 25, 8, null);
+        workM.create(w2);
+        Work w3 = new Work(p3, pr5, 30, 25, null);
+        workM.create(w3);
+        Work w4 = new Work(p2, pr4, 20, 3, null);
+        workM.create(w4);
+
+        OrderProduct op1 = new OrderProduct(100, o1, pr1);
+        orderProductM.create(op1);
+        OrderProduct op2 = new OrderProduct(50, o1, pr2);
+        orderProductM.create(op2);
+        OrderProduct op3 = new OrderProduct(80, o2, pr3);
+        orderProductM.create(op3);
+        OrderProduct op4 = new OrderProduct(25, o3, pr4);
+        orderProductM.create(op4);
 
         /*testCompanyMapper(companyM);
         testOrderMapper(orderM);

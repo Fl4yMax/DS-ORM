@@ -5,6 +5,7 @@ import dataMapper.IMapper.IDataMapper;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class WorkMapper implements IDataMapper<Work> {
@@ -22,7 +23,38 @@ public class WorkMapper implements IDataMapper<Work> {
 
     @Override
     public Work find(int id) {
-        return null;
+        ResultSet rs = null;
+        Work w = null;
+        try(Connection conn = Database.getConnection();
+            PreparedStatement statement = Database.prepareStatement(conn, "SELECT * FROM WORK WHERE Work_ID = ?", id)) {
+
+            rs = statement.executeQuery();
+            if(rs.next()) {
+                w = new Work(
+                        id,
+                        PersonMapper.getInstance().find(rs.getInt("personID")),
+                        ProductMapper.getInstance().find(rs.getInt("productID")),
+                        rs.getInt("toMake"),
+                        rs.getInt("made"),
+                        rs.getInt("hoursWorked"),
+                        rs.getDate("assignDate"),
+                        rs.getDate("finishDate"),
+                        rs.getString("active").equals("T") ? true : false
+                );
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if(rs != null){
+                    rs.close();
+                }
+            } catch (SQLException e){
+                e.printStackTrace();
+            }
+        }
+        return w;
     }
 
     @Override
@@ -30,7 +62,7 @@ public class WorkMapper implements IDataMapper<Work> {
         String sql = "INSERT INTO Work (personID, productID, toMake, hoursWorked, finishDate) VALUES (?, ?, ?, ?, ?)";
         String act = work.isActive() ? "T" : "F";
         try (Connection conn = Database.getConnection();
-             PreparedStatement statement = Database.prepareStatement(conn, sql, work.getPerson().getId(), work.getProduct().getId(), work.getToMake(), work.getFinishDate());
+             PreparedStatement statement = Database.prepareStatement(conn, sql, work.getPerson().getId(), work.getProduct().getId(), work.getToMake(), work.getHoursWorked(), work.getFinishDate());
         ) {
 
             int affectedRows = statement.executeUpdate();
@@ -49,8 +81,23 @@ public class WorkMapper implements IDataMapper<Work> {
     }
 
     @Override
-    public boolean update(Work obj) {
-        return false;
+    public boolean update(Work work) {
+        try(Connection conn = Database.getConnection();
+            PreparedStatement statement = Database.prepareStatement(conn, "UPDATE WORK SET made = ? WHERE Work_ID = ?", work.getMade(), work.getId())){
+
+            int affectedRows = statement.executeUpdate();
+
+            if(affectedRows > 0) {
+                System.out.println("WORK HAS BEEN UPDATED");
+            }
+            else {
+                System.out.println("SOMETHING WENT WRONG WHEN UPDATING WORK");
+            }
+            return affectedRows > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     @Override

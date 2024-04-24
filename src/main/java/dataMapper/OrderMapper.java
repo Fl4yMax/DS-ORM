@@ -197,7 +197,7 @@ public class OrderMapper implements IDataMapper<Order> {
             int numberOfRowsAffected = statement.executeUpdate();
 
             if(numberOfRowsAffected > 0){
-                System.out.println("Order quality has been verified");
+                System.out.println("Order ID: " + order.getId() + " quality has been verified, Ready to export");
             }
             else{
                 System.out.println("Something went wrong");

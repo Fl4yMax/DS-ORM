@@ -152,7 +152,7 @@ public class ProductMapper implements IDataMapper<Product> {
             }
 
             while (rs.next()) {
-                System.out.println("NAME: " + rs.getString("name") + " PRICE: " + rs.getString("price") + " COUNT: " + rs.getInt("count"));
+                System.out.println("Product and subproducts are: NAME: " + rs.getString("name") + " PRICE: " + rs.getString("price") + " COUNT: " + rs.getInt("count"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -176,7 +176,7 @@ public class ProductMapper implements IDataMapper<Product> {
 
             statement.execute();
 
-            System.out.println("Product copied");
+            System.out.println("Product copied... Created new product " + name);
 
         } catch (Exception e) {
             e.printStackTrace();

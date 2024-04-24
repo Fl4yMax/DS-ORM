@@ -341,10 +341,11 @@ public class PersonMapper implements IDataMapper<Person> {
         try(Connection conn = Database.getConnection();
             PreparedStatement statement = Database.prepareStatement(conn, sql, person.getId());) {
 
+
             int rowsAffected = statement.executeUpdate();
 
             if(rowsAffected > 0){
-                System.out.println("Person active status updated");
+                System.out.println("Person " + person.getFirstName() + " " + person.getLastName() + " active status updated");
             }
             else{
                 System.out.println("Something went wrong in SETTING_PERSON_ACTIVE");

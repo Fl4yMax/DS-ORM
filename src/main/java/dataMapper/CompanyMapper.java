@@ -84,7 +84,7 @@ public class CompanyMapper implements IDataMapper<Company> {
 
             int rowsAffected = statement.executeUpdate();
             if (rowsAffected > 0) {
-                System.out.println("Company has been linked succesfully");
+                System.out.println("Company: " + company.getName() + " has been linked to: " + person.getFirstName() + " " + person.getLastName() + " succesfully");
             } else {
                 System.out.println("Could not link the company");
             }

@@ -12,7 +12,7 @@ import java.util.List;
 
 public class AccountMapper implements IDataMapper<Account> {
 
-    private static final String SHOW_HOURS_WORKED = "SELECT SUM(hoursWorked) FROM account a JOIN person p ON a.personID = p.Person_ID "+
+    private static final String SHOW_HOURS_WORKED = "SELECT SUM(hoursWorked) as worked FROM account a JOIN person p ON a.personID = p.Person_ID "+
                                                     "JOIN Work w ON p.Person_ID = w.personID WHERE Person_ID = ? AND assignDate > ? AND assignDate < ?";
 
     private static AccountMapper instance;
@@ -172,7 +172,7 @@ public class AccountMapper implements IDataMapper<Account> {
 
             rs = statement.executeQuery();
             if(rs.next()){
-                System.out.println("Hours worked from: " + from + " to: " + to + " = " + rs.getInt(1));
+                System.out.println("Hours worked from: " + from + " to: " + to + " = " + rs.getInt("worked") + "hours");
             }
 
         } catch (SQLException e) {

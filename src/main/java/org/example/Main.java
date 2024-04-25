@@ -55,12 +55,6 @@ public class Main {
         resetColor();
     }
 
-    /*Person p = new Person("jan" + r, "Pepa", "Janků", null, null, addressM.find(1), false, "worker");
-        personM.create(p);
-    Person p2 = new Person("div" + r, "Richard", "Divný", null, null, addressM.find(1), false, "worker");
-        personM.create(p2);
-    Account account = new Account(36000, 0, 2500, "HEHEHWFNJA", true, "2321", "242453", "2424443221", p);
-        accountM.create(account);*/
     private static void testCompanyMapper(CompanyMapper companyM){
         //C001 - Show company info
         Company company = companyM.find(1);
@@ -138,8 +132,8 @@ public class Main {
         productM.showProductWithItsSubproducts(null, "Chair");
 
         //Pro003 - Copy product with subproducts
-    /*Product p = productM.find(2);
-    productM.copyProductWithSubproducts(p, "TurboChair");*/
+        /*Product p = productM.find(2);
+         productM.copyProductWithSubproducts(p, "TurboChair");*/
 
         //Pro004 - Create
         /*p = new Product("Handle", 0.45f, 85000, null);
@@ -190,7 +184,6 @@ public class Main {
         System.out.println(CYAN);
         Random random = new Random();
         int r = random.nextInt(9999);
-        //Person person = new Person("paz" + r, "Gabriel", "Paznocht", null, company, address, true, "admin");
         Person person = personM.find(2);
 
 
